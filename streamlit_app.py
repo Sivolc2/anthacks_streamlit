@@ -7,13 +7,16 @@ from audio_functions import generate_audio
 
 def main():
     # Set a title
-    st.title("My LangChain App")
+    st.title("Dynamite: Blow up your business!?")
 
     # Display environment variable information
     st.write(
         "Has environment variables been set:",
         os.environ["ANTHROPIC_API_KEY"] == st.secrets["ANTHROPIC_API_KEY"],
     )
+    st.write("Openai:", os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"])    
+    st.write("Elevenlabs:", os.environ["ELEVENLAB_API_KEY"] == st.secrets["ELEVENLAB_API_KEY"])    
+            
 
     # Select between the translation, chat, and audio pages
     page = st.sidebar.selectbox("Choose a page:", ["Translation", "Chat", "Audio"])
