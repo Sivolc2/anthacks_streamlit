@@ -8,6 +8,19 @@ from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 
+## Set Key
+import streamlit as st
+
+import os
+
+# Everything is accessible via the st.secrets dict:
+# And the root-level secrets are also accessible as environment variables:
+st.write(
+    "Has environment variables been set:",
+    os.environ["ANTHROPIC_API_KEY"] == st.secrets["ANTHROPIC_API_KEY"],
+)
+
+## Take user input and run out
 def main():
 
     # Set a title
