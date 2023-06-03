@@ -26,7 +26,7 @@ def translation_page():
         response = chat(messages)
 
         # Display the translation
-        st.write(f"The translated sentence is: {response[0].content}")
+        st.write(f"The translated sentence is: {response.content}")
 
 def chat_page():
     anthropic_client = anthropic.Client(api_key=os.getenv("ANTHROPIC_API_KEY"))
