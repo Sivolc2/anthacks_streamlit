@@ -7,6 +7,8 @@ from langchain.schema import HumanMessage
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
+import os
+
 ## Get Key
 st.write(
     "Has environment variables been set:",
