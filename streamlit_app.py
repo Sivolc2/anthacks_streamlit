@@ -39,7 +39,7 @@ def main():
         response = chat(messages)
 
         # Display the translation
-        st.write(f"The translated sentence is: {response[0].content}")
+        st.write(f"The translated sentence is: {response.content}")
 
         # Uncomment the following lines if you want to use streaming and verbosity
         # chat = ChatAnthropic(streaming=True, verbose=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]))
