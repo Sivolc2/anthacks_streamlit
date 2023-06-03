@@ -1,4 +1,5 @@
 # streamlit_app.py
+import os
 
 # Import necessary libraries
 import streamlit as st
@@ -6,8 +7,8 @@ from langchain.chat_models import ChatAnthropic
 from langchain.schema import HumanMessage
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+import anthropic
 
-import os
 
 ## Get Key
 st.write(
