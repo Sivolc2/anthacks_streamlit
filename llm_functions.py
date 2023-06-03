@@ -7,8 +7,8 @@ from langchain.chat_models import ChatAnthropic
 from langchain.schema import HumanMessage
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-import anthropic
 from elevenlabs import generate as generate_audio, set_api_key as elevenlabs_set_api_key
+import anthropic
 
 elevenlabs_set_api_key(os.getenv("ELEVENLABS_API_KEY"))
 
