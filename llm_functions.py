@@ -10,7 +10,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 import anthropic
 from elevenlabs import generate as generate_audio, set_api_key as elevenlabs_set_api_key
 
-elevenlabs_set_api_key(os.getenv("ELEVENLAB_API_KEY"))
+elevenlabs_set_api_key(os.getenv("ELEVENLABS_API_KEY"))
 
 ## Get Key
 
