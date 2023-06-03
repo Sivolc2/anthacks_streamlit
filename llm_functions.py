@@ -35,40 +35,6 @@ def translation_page():
 def chat_page():
     import anthropic
     anthropic_client = anthropic.Client(api_key=os.getenv("ANTHROPIC_API_KEY"))
-
-    chat = ChatAnthropic()
-
-    context = ""
-    user_inp = st.text_input("You: ")
-
-    if user_inp:
-        current_inp = anthropic.HUMAN_PROMPT + user_inp + anthropic.AI_PROMPT
-        context += current_inp
-
-        prompt = context
-
-        completion = anthropic_client.completion(
-            prompt=prompt, model="claude-v1.3-100k", max_tokens_to_sample=1000
-        )["completion"]
-
-        context += completion
-
-        # Display the response from the model
-        st.write("Anthropic: " + completion)
-
-        # Generate an audio file with the response and play it
-        audio = generate_audio(
-            text=completion,
-            voice="Arnold",
-            model='eleven_multilingual_v1'
-        )
-        st.audio(audio, format='audio/ogg')
-
-elevenlabs_set_api_key(os.getenv("ELEVENLABS_API_KEY"))
-
-def chat_page():
-    import anthropic
-    anthropic_client = anthropic.Client(api_key=os.getenv("ANTHROPIC_API_KEY"))
     chat_model = ChatAnthropic()
 
     context = ""
