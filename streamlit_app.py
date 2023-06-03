@@ -10,10 +10,7 @@ def main():
     st.title("Dynamite: Blow up your business!?")
 
     # Display environment variable information
-    st.write(
-        "Has environment variables been set:",
-        os.environ["ANTHROPIC_API_KEY"] == st.secrets["ANTHROPIC_API_KEY"],
-    )
+    st.write("Anthropic", os.environ["ANTHROPIC_API_KEY"] == st.secrets["ANTHROPIC_API_KEY"])
     st.write("Openai:", os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"])    
     st.write("Elevenlabs:", os.environ["ELEVENLABS_API_KEY"] == st.secrets["ELEVENLABS_API_KEY"])    
             

@@ -33,7 +33,7 @@ def translation_page():
 def chat_page():
     anthropic_client = anthropic.Client(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-    anthropic = ChatAnthropic()
+    chat = ChatAnthropic()
 
     context = ""
     user_inp = st.text_input("You: ")
