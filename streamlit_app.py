@@ -15,7 +15,7 @@ def main():
         os.environ["ANTHROPIC_API_KEY"] == st.secrets["ANTHROPIC_API_KEY"],
     )
     st.write("Openai:", os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"])    
-    st.write("Elevenlabs:", os.environ["ELEVENLAB_API_KEY"] == st.secrets["ELEVENLAB_API_KEY"])    
+    st.write("Elevenlabs:", os.environ["ELEVENLABS_API_KEY"] == st.secrets["ELEVENLABS_API_KEY"])    
             
 
     # Select between the translation, chat, and audio pages
