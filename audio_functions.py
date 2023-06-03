@@ -16,3 +16,12 @@ def generate_audio():
     note_la = np.sin(frequency_la * t * 2 * np.pi)
 
     return note_la, sample_rate
+
+def autoplay_audio(audio_bytes):
+    b64 = base64.b64encode(audio_bytes).decode()
+    md = f"""
+        <audio autoplay>
+        <source src="data:audio/ogg;base64,{b64}" type="audio/ogg">
+        </audio>
+        """
+    st.markdown(md, unsafe_allow_html=True)

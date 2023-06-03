@@ -9,6 +9,8 @@ from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from elevenlabs import generate as generate_audio, set_api_key as elevenlabs_set_api_key
 
+from audio_functions import autoplay_audio
+
 elevenlabs_set_api_key(os.getenv("ELEVENLABS_API_KEY"))
 
 ## Get Key
@@ -61,6 +63,40 @@ def chat_page():
             model='eleven_multilingual_v1'
         )
         st.audio(audio, format='audio/ogg')
+
+elevenlabs_set_api_key(os.getenv("ELEVENLABS_API_KEY"))
+
+def chat_page():
+    import anthropic
+    anthropic_client = anthropic.Client(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    chat_model = ChatAnthropic()
+
+    context = ""
+    user_inp = st.text_input("You: ")
+
+    if user_inp:
+        current_inp = anthropic.HUMAN_PROMPT + user_inp + anthropic.AI_PROMPT
+        context += current_inp
+
+        prompt = context
+
+        completion = anthropic_client.completion(
+            prompt=prompt, model="claude-v1.3-100k", max_tokens_to_sample=1000
+        )["completion"]
+
+        context += completion
+
+        # Display the response from the model
+        st.write("Anthropic: " + completion)
+
+        # Generate an audio file with the response and play it
+        audio = generate_audio(
+            text=completion,
+            voice="Arnold",
+            model='eleven_multilingual_v1'
+        )
+        autoplay_audio(audio)
+
 
 # def whisper_api():
     
