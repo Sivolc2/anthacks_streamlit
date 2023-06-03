@@ -1,5 +1,7 @@
+#llm_functions.py
 import os
 import requests
+import base64
 
 # Import necessary libraries
 import streamlit as st
@@ -35,7 +37,6 @@ def translation_page():
 def chat_page():
     import anthropic
     anthropic_client = anthropic.Client(api_key=os.getenv("ANTHROPIC_API_KEY"))
-    chat_model = ChatAnthropic()
 
     context = ""
     user_inp = st.text_input("You: ")
@@ -61,8 +62,9 @@ def chat_page():
             voice="Arnold",
             model='eleven_multilingual_v1'
         )
-        autoplay_audio(audio)
-
+        audio_base64 = base64.b64encode(audio).decode('utf-8')
+        audio_tag = f'<audio autoplay src="data:audio/ogg;base64,{audio_base64}">'
+        st.markdown(audio_tag, unsafe_allow_html=True)
 
 # def whisper_api():
     
