@@ -8,13 +8,13 @@ from langchain.schema import HumanMessage
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from elevenlabs import generate as generate_audio, set_api_key as elevenlabs_set_api_key
-import anthropic
 
 elevenlabs_set_api_key(os.getenv("ELEVENLABS_API_KEY"))
 
 ## Get Key
 
 def translation_page():
+    import anthropic
     # Ask the user for a sentence to translate
     user_sentence = st.text_input("Please enter a sentence to translate from English to French:")
 
@@ -31,6 +31,7 @@ def translation_page():
         st.write(f"The translated sentence is: {response.content}")
 
 def chat_page():
+    import anthropic
     anthropic_client = anthropic.Client(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
     chat = ChatAnthropic()
