@@ -6,7 +6,6 @@ from langchain.chat_models import ChatAnthropic
 from langchain.schema import HumanMessage
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from anthropic import AnthropicClient
 
 ## Get Key
 st.write(
@@ -33,6 +32,7 @@ def translation_page():
 
 
 def chat_page():
+    anthropic_client = anthropic.Client(api_key=os.getenv("ANTHROPIC_API_KEY"))
     anthropic = ChatAnthropic()
 
     context = ""
