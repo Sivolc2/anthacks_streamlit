@@ -33,7 +33,6 @@ def translation_page():
 
 
 def chat_page():
-    anthropic_client = AnthropicClient(api_key=os.environ["ANTHROPIC_API_KEY"])
     anthropic = ChatAnthropic()
 
     context = ""
