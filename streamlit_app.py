@@ -2,32 +2,35 @@
 
 # Import necessary libraries
 import streamlit as st
-import pandas as pd
-import numpy as np
+from langchain.chat_models import ChatAnthropic
+from langchain.schema import HumanMessage
+from langchain.callbacks.manager import CallbackManager
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
-# Define your Streamlit application
+
 def main():
 
     # Set a title
-    st.title("My Streamlit App")
+    st.title("My LangChain Translation App")
 
-    # Write some text
-    st.write("Welcome to my application. Please interact with it from the sidebar.")
+    # Ask the user for a sentence to translate
+    user_sentence = st.text_input("Please enter a sentence to translate from English to French:")
 
-    # Create a sidebar with a selectbox for user selection
-    st.sidebar.title('Interactions')
-    user_choice = st.sidebar.selectbox("Choose your action", ["Display text", "Display DataFrame"])
+    # Only attempt to translate when the user has entered a sentence
+    if user_sentence:
+        chat = ChatAnthropic()
 
-    # Based on the user choice, display the corresponding information
-    if user_choice == "Display text":
-        st.write("You selected to display text.")
-    elif user_choice == "Display DataFrame":
-        st.write("You selected to display a DataFrame. Here it is:")
-        df = pd.DataFrame({
-        'first column': list(range(1, 101)),
-        'second column': np.random.randn(100).tolist()
-        })
-        st.write(df)
+        messages = [
+            HumanMessage(content=f"Translate this sentence from English to French. {user_sentence}")
+        ]
+        response = chat(messages)
+
+        # Display the translation
+        st.write(f"The translated sentence is: {response[0].content}")
+
+        # Uncomment the following lines if you want to use streaming and verbosity
+        # chat = ChatAnthropic(streaming=True, verbose=True, callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]))
+        # response = chat(messages)
 
 if __name__ == "__main__":
     main()
