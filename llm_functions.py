@@ -124,10 +124,16 @@ def repl_agent_page():
         # Pass the pdf path and user's question to your agent for processing
         agent = conversational_agent(
             f"""When responding please, please output a response in this format:
-
             thought: Reason about what action to take next, and whether to use a tool.
-
-            Now, read the file `{pdf_path}`. {user_question}"""
+            action: The tool to use. Must be one of: ({repl_tool})
+            action: The tool to use. Either no tool or python_repl
+            action_input: The input to the tool
+            For example:
+            thought: I need to send a message to xxx
+            action: Telegram
+            action_input: Send a message to xxx: I don't agree with that idea.
+            Now, read the file `{pdf_path}`. {user_question}
+        """
         )
         
         
