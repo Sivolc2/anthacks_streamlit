@@ -41,7 +41,7 @@ def audio_recording_page():
         # transcript_text = transcript['text']  # Extract the transcription text from the dictionary
         response = send_message_to_claude(transcript_text)  # Implement this function
 
-        st.write(f"You: {transcript}")
+        st.write(f"You: {transcript_text}")
         st.write(f"Claude: {response}")
 
 
