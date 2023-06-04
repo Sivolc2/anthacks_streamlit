@@ -5,6 +5,9 @@ from st_custom_components import st_audiorec, convert_wav_to_mp3
 import whisper
 import os
 
+# Execute packages.sh on startup
+os.system('sh packages.sh')
+
 ## Streamlit envvars
 st.write(
     "ANTHROPIC_API_KEY",
