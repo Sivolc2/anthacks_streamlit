@@ -70,14 +70,13 @@ def chat_page():
 class MediaManager:
     """A class to act as a primary interface to manage media objects and related data"""
 
-    def __init__(self, media_dir: Path = "MEDIA_DIR"):
-        self.media_dir = media_dir
-        # Create the media directory if it doesn't exist
+    def __init__(self, media_dir: str = 'MEDIA_DIR'):
+        self.media_dir = Path(media_dir)
         self.media_dir.mkdir(exist_ok=True, parents=True)
 
     def _transcribe(self, audio_path: str, whisper_model: str):
         """Transcribe the audio file using whisper"""
-
+ 
         # Load whisper model
         model = whisper.load_model(whisper_model)
 

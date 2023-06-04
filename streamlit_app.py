@@ -6,7 +6,6 @@ import whisper
 import os
 
 # Execute packages.sh on startup
-os.system('sh packages.sh')
 
 ## Streamlit envvars
 st.write(
