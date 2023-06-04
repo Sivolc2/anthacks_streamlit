@@ -13,12 +13,10 @@ from elevenlabs import generate as generate_audio, set_api_key as elevenlabs_set
 
 from audio_functions import autoplay_audio
 
+## Get Key
 elevenlabs_set_api_key(os.getenv("ELEVENLABS_API_KEY"))
 
-## Get Key
-
 def translation_page():
-    import anthropic
     # Ask the user for a sentence to translate
     user_sentence = st.text_input("Please enter a sentence to translate from English to French:")
 

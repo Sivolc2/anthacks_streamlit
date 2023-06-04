@@ -25,3 +25,4 @@ def autoplay_audio(audio_bytes):
         </audio>
         """
     st.markdown(md, unsafe_allow_html=True)
+
