@@ -1,6 +1,6 @@
 # streamlit_app.py
 import streamlit as st
-from llm_functions import MediaManager
+from llm_functions import *
 from st_custom_components import st_audiorec
 from whisper import WhisperArgs
 import os
