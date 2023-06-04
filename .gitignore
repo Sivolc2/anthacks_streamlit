@@ -1,2 +1,5 @@
 .env
 creds.sh
+.DS_Store
+message.txt
+store/
