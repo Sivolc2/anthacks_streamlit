@@ -2,6 +2,8 @@
 import os
 import requests
 import base64
+from pathlib import Path
+import numpy as np
 
 # Import necessary libraries
 import streamlit as st
@@ -10,6 +12,7 @@ from langchain.schema import HumanMessage
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from elevenlabs import generate as generate_audio, set_api_key as elevenlabs_set_api_key
+from whisper import WhisperModel, WhisperArgs, Transcriber
 
 from audio_functions import autoplay_audio
 
@@ -64,18 +67,34 @@ def chat_page():
         audio_tag = f'<audio autoplay src="data:audio/ogg;base64,{audio_base64}">'
         st.markdown(audio_tag, unsafe_allow_html=True)
 
-# def whisper_api():
-    
-#     OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
+class MediaManager:
+    """A class to act as a primary interface to manage media objects and related data"""
 
-#     url = 'https://api.openai.com/v1/audio/transcriptions'
-#     headers = {'Authorization': f'Bearer {OPENAI_API_KEY}'}
-#     files = {'file': open(file_path, 'rb'),
-#             'model': (None, 'whisper-1')
-#     }
-#     response = requests.post(url, headers=headers, files=files)
-#     output_path = os.path.join(folder_path, os.path.splitext(os.path.basename(file_path))[0] + '.' + output_format)
-#     with open(output_path, 'w') as f:
-#         f.write(response.content.decode('utf-8'))
+    def __init__(self, whisper_model: str, whisper_args: WhisperArgs):
+        # Define whisper model and arguments
+        self.whisper_model = whisper_model
+        self.whisper_args = whisper_args
 
+    def _transcribe(self, audio_path: str):
+        """Transcribe the audio file using whisper"""
 
+        # Get whisper model
+        # NOTE: If multiple models are selected, this may keep all of them in memory depending on the cache size
+        transcriber = get_whisper_model(self.whisper_model)
+
+        # Set configs & transcribe
+        if self.whisper_args["temperature_increment_on_fallback"] is not None:
+            self.whisper_args["temperature"] = tuple(
+                np.arange(self.whisper_args["temperature"], 1.0 + 1e-6, self.whisper_args["temperature_increment_on_fallback"])
+            )
+        else:
+            self.whisper_args["temperature"] = [self.whisper_args["temperature"]]
+
+        del self.whisper_args["temperature_increment_on_fallback"]
+
+        transcript = transcriber.transcribe(
+            audio_path,
+            **self.whisper_args,
+        )
+
+        return transcript
