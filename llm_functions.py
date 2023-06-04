@@ -86,6 +86,7 @@ def chat_page():
 
 
 def repl_agent_page():
+    import anthropic
     st.title("REPL Agent Page")
 
     # Create a file uploader for the user to upload a pdf
@@ -100,6 +101,8 @@ def repl_agent_page():
         pdf_path = "temp_pdf_file.pdf"
         with open(pdf_path, "wb") as f:
             f.write(pdf_file.getbuffer())
+            pdf_scan = f.read()
+        
 
         python_repl = PythonREPL()
         repl_tool = Tool(
@@ -111,30 +114,44 @@ def repl_agent_page():
         tools = [repl_tool]
         memory = ConversationBufferMemory(memory_key="chat_history")
         llm = ChatAnthropic()
+        
+        if user_sentence:
+            chat = ChatAnthropic()
 
-        conversational_agent = initialize_agent(
-            agent="conversational-react-description",
-            tools=tools,
-            llm=llm,
-            verbose=True,
-            max_iterations=3,
-            memory=memory,
-        )
+            messages = [
+                HumanMessage(
+                    content=f"Summarize this PDF {pdf_scan}"
+                )
+            ]
+            response = chat(messages)
 
-        # Pass the pdf path and user's question to your agent for processing
-        agent = conversational_agent(
-            f"""When responding please, please output a response in this format:
-            thought: Reason about what action to take next, and whether to use a tool.
-            action: The tool to use. Must be one of: ({repl_tool})
-            action: The tool to use. Either no tool or python_repl
-            action_input: The input to the tool
-            For example:
-            thought: I need to send a message to xxx
-            action: Telegram
-            action_input: Send a message to xxx: I don't agree with that idea.
-            Now, read the file `{pdf_path}`. {user_question}
-        """
-        )
+            # Display the translation
+            st.write(f"A summary of this pdf is {response.content}")
+
+
+        # conversational_agent = initialize_agent(
+        #     agent="conversational-react-description",
+        #     tools=tools,
+        #     llm=llm,
+        #     verbose=True,
+        #     max_iterations=3,
+        #     memory=memory,
+        # )
+
+        # # Pass the pdf path and user's question to your agent for processing
+        # agent = conversational_agent(
+        #     f"""When responding please, please output a response in this format:
+        #     thought: Reason about what action to take next, and whether to use a tool.
+        #     action: The tool to use. Must be one of: ({repl_tool})
+        #     action: The tool to use. Either no tool or python_repl
+        #     action_input: The input to the tool
+        #     For example:
+        #     thought: I need to send a message to xxx
+        #     action: Telegram
+        #     action_input: Send a message to xxx: I don't agree with that idea.
+        #     Now, read the file `{pdf_path}`. {user_question}
+        # """
+        # )
         
         
         # Delete the temporary pdf file after processing
