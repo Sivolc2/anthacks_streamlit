@@ -122,16 +122,20 @@ def repl_agent_page():
         )
 
         # Pass the pdf path and user's question to your agent for processing
-        conversational_agent(
+        agent = conversational_agent(
             f"""When responding please, please output a response in this format:
 
             thought: Reason about what action to take next, and whether to use a tool.
 
-            Now, read the file `{pdf_path}`. {user_question}"""
+            Now, read the file `{pdf_path}`"""
         )
-
+        
+        
         # Delete the temporary pdf file after processing
         os.remove(pdf_path)
+        
+        st.write(agent.run(user_question))
+
     else:
         st.write("Please upload a PDF file and enter your question for processing.")
 
