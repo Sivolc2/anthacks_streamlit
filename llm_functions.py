@@ -126,7 +126,7 @@ def repl_agent_page():
             f"""When responding please, please output a response in this format:
 
             thought: Reason about what action to take next, and whether to use a tool.
-            action: The tool to use. Must be one of: {tool_names}
+            action: The tool to use. Either no tool or python_repl
             action_input: The input to the tool
 
             For example:
