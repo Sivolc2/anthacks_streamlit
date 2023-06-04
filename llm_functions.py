@@ -127,7 +127,7 @@ def repl_agent_page():
 
             thought: Reason about what action to take next, and whether to use a tool.
             action: The tool to use. Either no tool or python_repl
-            action_input: The input to the tool
+            action_input: The input to the tool or None
 
             For example:
 
