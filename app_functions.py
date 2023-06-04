@@ -37,8 +37,8 @@ def audio_recording_page():
         media_manager = MediaManager()
 
         # Transcribe the audio
-        transcript = media_manager._transcribe(mp3_file_path, whisper_model)
-        transcript_text = transcript['text']  # Extract the transcription text from the dictionary
+        transcript_text = media_manager._transcribe(mp3_file_path, whisper_model)
+        # transcript_text = transcript['text']  # Extract the transcription text from the dictionary
         response = send_message_to_claude(transcript_text)  # Implement this function
 
         st.write(f"You: {transcript}")
