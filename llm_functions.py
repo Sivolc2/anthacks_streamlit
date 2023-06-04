@@ -127,14 +127,14 @@ def repl_agent_page():
 
             thought: Reason about what action to take next, and whether to use a tool.
 
-            Now, read the file `{pdf_path}`"""
+            Now, read the file `{pdf_path}`. {user_question}"""
         )
         
         
         # Delete the temporary pdf file after processing
         os.remove(pdf_path)
         
-        st.write(agent.run(user_question))
+        st.write(agent)
 
     else:
         st.write("Please upload a PDF file and enter your question for processing.")
