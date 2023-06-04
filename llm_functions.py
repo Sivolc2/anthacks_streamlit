@@ -70,31 +70,18 @@ def chat_page():
 class MediaManager:
     """A class to act as a primary interface to manage media objects and related data"""
 
-    def __init__(self, whisper_model: str, whisper_args: WhisperArgs):
-        # Define whisper model and arguments
-        self.whisper_model = whisper_model
-        self.whisper_args = whisper_args
+    def __init__(self, media_dir: Path = MEDIA_DIR):
+        self.media_dir = media_dir
+        # Create the media directory if it doesn't exist
+        self.media_dir.mkdir(exist_ok=True, parents=True)
 
-    def _transcribe(self, audio_path: str):
+    def _transcribe(self, audio_path: str, whisper_model: str):
         """Transcribe the audio file using whisper"""
 
-        # Get whisper model
-        # NOTE: If multiple models are selected, this may keep all of them in memory depending on the cache size
-        transcriber = get_whisper_model(self.whisper_model)
+        # Load whisper model
+        model = whisper.load_model(whisper_model)
 
-        # Set configs & transcribe
-        if self.whisper_args["temperature_increment_on_fallback"] is not None:
-            self.whisper_args["temperature"] = tuple(
-                np.arange(self.whisper_args["temperature"], 1.0 + 1e-6, self.whisper_args["temperature_increment_on_fallback"])
-            )
-        else:
-            self.whisper_args["temperature"] = [self.whisper_args["temperature"]]
-
-        del self.whisper_args["temperature_increment_on_fallback"]
-
-        transcript = transcriber.transcribe(
-            audio_path,
-            **self.whisper_args,
-        )
+        # Transcribe the audio file
+        transcript = model.transcribe(audio_path)
 
         return transcript

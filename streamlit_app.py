@@ -48,26 +48,22 @@ def audio_recording_page():
     wav_audio_data = st_audiorec()
 
     if wav_audio_data is not None:
-        # Save the recorded audio to a .wav file
-        audio_path = 'path_to_your_audio_file.wav'
-        with open(audio_path, 'wb') as f:
-            f.write(wav_audio_data)
+        print('No audio found')
+        # # Save the recorded audio to a .mp3 file
+        # audio_path = 'path_to_your_audio_file.mp3'
+        # with open(audio_path, 'wb') as f:
+        #     f.write(wav_audio_data)
 
-        # Define whisper model and arguments
-        whisper_model = WHISPER_DEFAULT_SETTINGS['whisper_model']
-        whisper_args = WhisperArgs(
-            temperature=0.8,
-            temperature_increment_on_fallback=0.05,
-            max_tokens=None,
-            sample=True,
-        )
+        # Define whisper model
+        whisper_model = 'base'
 
-        # Initialize the MediaManager class with the whisper model and arguments
-        media_manager = MediaManager(whisper_model, whisper_args)
+        # Initialize the MediaManager class
+        media_manager = MediaManager()
 
         # Transcribe the audio
-        transcript = media_manager._transcribe(audio_path)
+        transcript = media_manager._transcribe(audio_path, whisper_model)
         st.write(transcript)
+
 
 if __name__ == "__main__":
     main()
