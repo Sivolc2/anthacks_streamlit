@@ -5,11 +5,16 @@ from audio_functions import st_audiorec  # Ensure this is available
 
 ## Streamlit envvars
 st.write(
-    "Has environment variables been set:",
+    "ANTHROPIC_API_KEY",
     os.environ["ANTHROPIC_API_KEY"] == st.secrets["ANTHROPIC_API_KEY"],
-    os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"],
-    os.environ["ELEVENLABS_API_KEY"] == st.secrets["ELEVENLABS_API_KEY"],
 )
+st.write(
+    'OPENAI_API_KEY', os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"],
+)
+st.write(
+    'ELEVENLABS_API_KEY', os.environ["ELEVENLABS_API_KEY"] == st.secrets["ELEVENLABS_API_KEY"]
+)
+
 
 ## Utils
 def main():
