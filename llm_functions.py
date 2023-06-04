@@ -70,7 +70,7 @@ def chat_page():
 class MediaManager:
     """A class to act as a primary interface to manage media objects and related data"""
 
-    def __init__(self, media_dir: Path = MEDIA_DIR):
+    def __init__(self, media_dir: Path = 'MEDIA_DIR'):
         self.media_dir = media_dir
         # Create the media directory if it doesn't exist
         self.media_dir.mkdir(exist_ok=True, parents=True)
