@@ -4,6 +4,13 @@ import streamlit as st
 from io import BytesIO
 import streamlit.components.v1 as components
 
+from pydub import AudioSegment
+
+def convert_wav_to_mp3(wav_file, mp3_file):
+    audio = AudioSegment.from_wav(wav_file)
+    audio.export(mp3_file, format="mp3")
+
+
 def st_audiorec():
 
     # get parent directory relative to current directory
@@ -15,7 +22,6 @@ def st_audiorec():
 
     # Create an instance of the component: STREAMLIT AUDIO RECORDER
     raw_audio_data = st_audiorec()  # raw_audio_data: stores all the data returned from the streamlit frontend
-    wav_bytes = None                # wav_bytes: contains the recorded audio in .WAV format after conversion
 
     # the frontend returns raw audio data in the form of arraybuffer
     # (this arraybuffer is derived from web-media API WAV-blob data)
@@ -30,4 +36,13 @@ def st_audiorec():
             # wav_bytes contains audio data in byte format, ready to be processed further
             wav_bytes = stream.read()
 
-    return wav_bytes
+        # Save the audio data to a .wav file
+        audio_file_path = os.path.join(parent_dir, 'audio_recording.wav')
+        with open(audio_file_path, 'wb') as f:
+            f.write(wav_bytes)
+
+        # Return the path of the .wav file
+        return audio_file_path
+
+    return None
+

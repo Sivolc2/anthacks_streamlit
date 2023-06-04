@@ -1,7 +1,7 @@
 # streamlit_app.py
 import streamlit as st
 from llm_functions import *
-from st_custom_components import st_audiorec
+from st_custom_components import st_audiorec, convert_wav_to_mp3
 import whisper
 import os
 
@@ -45,14 +45,12 @@ def main():
         audio_recording_page()
 
 def audio_recording_page():
-    wav_audio_data = st_audiorec()
+    wav_file_path = st_audiorec()
 
-    if wav_audio_data is not None:
-        print('No audio found')
-        # # Save the recorded audio to a .mp3 file
-        # audio_path = 'path_to_your_audio_file.mp3'
-        # with open(audio_path, 'wb') as f:
-        #     f.write(wav_audio_data)
+    if wav_file_path is not None:
+        # Convert .wav file to .mp3
+        mp3_file_path = wav_file_path.replace('.wav', '.mp3')
+        convert_wav_to_mp3(wav_file_path, mp3_file_path)
 
         # Define whisper model
         whisper_model = 'base'
@@ -61,8 +59,9 @@ def audio_recording_page():
         media_manager = MediaManager()
 
         # Transcribe the audio
-        transcript = media_manager._transcribe(audio_path, whisper_model)
+        transcript = media_manager._transcribe(mp3_file_path, whisper_model)
         st.write(transcript)
+
 
 
 if __name__ == "__main__":

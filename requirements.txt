@@ -4,3 +4,4 @@ langchain
 anthropic
 elevenlabs
 openai-whisper
+pydub
