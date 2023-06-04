@@ -154,10 +154,20 @@ class MediaManager:
     def _transcribe(self, audio_path: str, whisper_model: str):
         """Transcribe the audio file using whisper"""
 
+        # Check if the file has content
+        if os.path.getsize(audio_path) == 0:
+            st.write("Error: The audio file has no content.")
+            return None
+
         # Load whisper model
         model = whisper.load_model(whisper_model)
 
-        # Transcribe the audio file
-        transcript = model.transcribe(audio_path)
+        try:
+            # Transcribe the audio file
+            transcript = model.transcribe(audio_path)
+        except Exception as e:
+            st.write(f"Error during transcription: {str(e)}")
+            st.write(f"Audio file path: {audio_path}")
+            return None
 
-        return transcript
+        return transcript['text']  # return only the transcribed text, not the entire output
