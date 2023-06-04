@@ -9,7 +9,6 @@ import requests
 # Import necessary libraries
 import streamlit as st
 import whisper
-from dotenv import load_dotenv
 from elevenlabs import generate as generate_audio
 from elevenlabs import set_api_key as elevenlabs_set_api_key
 from langchain.agents import Tool, create_csv_agent, initialize_agent, load_tools
