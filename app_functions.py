@@ -35,11 +35,16 @@ def audio_recording_page():
         # Initialize the MediaManager class
         media_manager = MediaManager()
 
-        # Transcribe the audio
-        transcript = media_manager._transcribe(mp3_file_path, whisper_model)
+        # # Transcribe the audio
+        # transcript = media_manager._transcribe(mp3_file_path, whisper_model)
 
-        # Send the transcribed message to Claude
-        response = send_message_to_claude(transcript)  # Implement this function
+        # # Send the transcribed message to Claude
+        # response = send_message_to_claude(transcript)  # Implement this function
+        
+        transcript = media_manager._transcribe(mp3_file_path, whisper_model)
+        transcript_text = transcript['transcript']  # Extract the transcription text from the dictionary
+        response = send_message_to_claude(transcript_text)  # Implement this function
+
         st.write(f"You: {transcript}")
         st.write(f"Claude: {response}")
 
