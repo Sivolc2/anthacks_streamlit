@@ -9,12 +9,23 @@ import requests
 # Import necessary libraries
 import streamlit as st
 import whisper
+from dotenv import load_dotenv
 from elevenlabs import generate as generate_audio
 from elevenlabs import set_api_key as elevenlabs_set_api_key
+from langchain.agents import Tool, create_csv_agent, initialize_agent, load_tools
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.chat_models import ChatAnthropic
-from langchain.schema import HumanMessage
+from langchain.llms import OpenAI
+from langchain.memory import ConversationBufferMemory
+from langchain.prompts.chat import (
+    AIMessagePromptTemplate,
+    ChatPromptTemplate,
+    HumanMessagePromptTemplate,
+    SystemMessagePromptTemplate,
+)
+from langchain.schema import AIMessage, HumanMessage, SystemMessage
+from langchain.utilities import PythonREPL
 
 from audio_functions import autoplay_audio
 
