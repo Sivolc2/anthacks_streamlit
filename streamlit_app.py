@@ -1,7 +1,7 @@
 # streamlit_app.py
 import streamlit as st
 from llm_functions import *
-from st_custom_components import st_audiorec  # Ensure this is available
+from audio_functions import st_audiorec  # Ensure this is available
 
 ## Streamlit envvars
 st.write(
