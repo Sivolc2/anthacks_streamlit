@@ -8,7 +8,7 @@ st.write(
     "Has environment variables been set:",
     os.environ["ANTHROPIC_API_KEY"] == st.secrets["ANTHROPIC_API_KEY"],
     os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"],
-    os.environ["ELEVENLABS_API_KEY"] == st.secrets["ELEVENLAB_API_KEY"],
+    os.environ["ELEVENLABS_API_KEY"] == st.secrets["ELEVENLABS_API_KEY"],
 )
 
 ## Utils
